@@ -1,0 +1,235 @@
+  name: First interaction
+  uses: actions/first-interaction@v1.3.0
+  with:
+    # Token for the repository. Can be passed in using {{ secrets.GITHUB_TOKEN }}
+    repo-token: 
+    # Comment to post on an individual's first issue
+    issue-message: # optional
+    # Comment to post on an individual's first pull request
+    pr-message: # optional
+  name: Cache
+  uses: actions/cache@v5.1.0
+  with:
+    # A list of files, directories, and wildcard patterns to cache and restore
+    path: 
+    # An explicit key for restoring and saving the cache
+    key: 
+    # An ordered multiline string listing the prefix-matched keys, that are used for restoring stale cache if no cache hit occurred for key. Note `cache-hit` returns false in this case.
+    restore-keys: # optional
+    # The chunk size used to split up large files during upload, in bytes
+    upload-chunk-size: # optional
+    # An optional boolean when enabled, allows windows runners to save or restore caches that can be restored or saved respectively on other platforms
+    enableCrossOsArchive: # optional, default is false
+    # Fail the workflow if cache entry is not found
+    fail-on-cache-miss: # optional, default is false
+    # Check if a cache entry exists for the given input(s) (key, restore-keys) without downloading the cache
+    lookup-only: # optional, default is false
+    # Run the post step to save the cache even if another step before fails
+    save-always: # optional, default is false
+    - name: Setup Java JDK
+  uses: actions/setup-java@v6.0.1
+  with:
+    # The Java version to set up. Takes a whole or semver Java version, or the "latest" alias to use the newest available stable release. See examples of supported syntax in README file
+    java-version: # optional
+    # The path to a file containing the Java version to set up (.java-version, .tool-versions, .sdkmanrc). Used when java-version is not set. See examples of supported syntax in README file
+    java-version-file: # optional
+    # Java distribution. See the list of supported distributions in README file. This input is required except when java-version-file points to .sdkmanrc with a recognized distribution suffix (e.g., java=21.0.5-tem).
+    distribution: # optional
+    # The package type (`jdk`, `jre`, `jdk+fx`, `jre+fx`, `jdk+crac`, `jre+crac`, `jdk+jmods`, `jdk+jcef`, `jre+jcef`, `jdk+ft`, or `jre+ft`). Supported values vary by distribution.
+    java-package: # optional, default is jdk
+    # The architecture of the package (`x86`, `x64`, `armv7`, `aarch64`, `ppc64le`, `ppc64`, or `s390x`). Aliases `ia32`, `amd64`, `arm`, and `arm64` are normalized to `x86`, `x64`, `armv7`, and `aarch64`. Supported values vary by distribution and operating system. Defaults to the action runner's architecture.
+    architecture: # optional
+    # Path to where the compressed JDK is located
+    jdk-file: # optional
+    # Deprecated alias for `jdk-file`. Path to where the compressed JDK is located. Use `jdk-file` instead; this alias may be removed in a future release.
+    jdkFile: # optional
+    # Set this option if you want the action to check for the latest available version that satisfies the version spec
+    check-latest: # optional
+    # Set this option to always download Java and replace any matching version in the tool cache
+    force-download: # optional
+    # Set this option to false if you want to install a JDK but not make it the default. When false, JAVA_HOME and PATH are not updated, but JAVA_HOME_<major>_<arch> is still set.
+    set-default: # optional, default is true
+    # Check downloaded Java package signatures when supported by the selected distribution. When omitted, failures produce warnings. Explicitly setting this to true enforces verification and makes failures fatal, including failures caused by an unexpected vendor signing-key rotation.
+    verify-signature: # optional
+    # One or more ASCII-armored GPG public keys used to verify downloaded package signatures. Concatenate multiple armored key blocks. Custom keys replace the bundled keys for the selected distribution.
+    verify-signature-public-key: # optional
+    # ID of the distributionManagement repository in the pom.xml file. Default is `github`
+    server-id: # optional, default is github
+    # Environment variable name for the username for authentication to the Apache Maven repository. Default is $GITHUB_ACTOR
+    server-username-env-var: # optional
+    # Deprecated alias for server-username-env-var
+    server-username: # optional
+    # Environment variable name for password or token for authentication to the Apache Maven repository. Default is $GITHUB_TOKEN
+    server-password-env-var: # optional
+    # Deprecated alias for server-password-env-var
+    server-password: # optional
+    # Multiline list of Maven server credentials in the format `server-id:USERNAME_ENV:PASSWORD_ENV`. When set, replaces the single server configured by server-id, server-username-env-var, and server-password-env-var.
+    mvn-server-credentials: # optional
+    # Multiline list of Maven dependency repositories in the format `repository-id:repository-url:snapshots-enabled`.
+    mvn-repositories: # optional
+    # Include Maven Central in the generated dependency repositories profile. When false, Central is disabled unless an explicit repository with ID `central` is declared.
+    mvn-repositories-include-central: # optional, default is true
+    # Place Maven Central before custom dependency repositories. Has no effect when Maven Central is excluded.
+    mvn-repositories-prioritize-central: # optional, default is true
+    # Path to where the settings.xml file will be written. Default is ~/.m2.
+    settings-path: # optional
+    # Overwrite the settings.xml file if it exists. Default is "true".
+    overwrite-settings: # optional, default is true
+    # GPG private key to import into an isolated temporary keyring. Default is empty string.
+    gpg-private-key: # optional, default is 
+    # Environment variable name for the GPG private key passphrase. Defaults to GPG_PASSPHRASE when gpg-private-key is set.
+    gpg-passphrase-env-var: # optional
+    # Deprecated alias for gpg-passphrase-env-var
+    gpg-passphrase: # optional
+    # Name of the build platform to cache dependencies. It can be "maven", "gradle" or "sbt".
+    cache: # optional
+    # Cache downloaded JDK installations between jobs. Defaults to enabled when dependency caching is configured with `cache`; set explicitly to "true" or "false" to override.
+    cache-jdk: # optional
+    # The path to a dependency file: pom.xml, build.gradle, build.sbt, etc. This option can be used with the `cache` option. If this option is omitted, the action searches for the dependency file in the entire repository. This option supports wildcards and a list of file names for caching multiple dependencies.
+    cache-dependency-path: # optional
+    # The path to cache instead of the default dependency cache path for the selected package manager. This option can be used with the `cache` option and supports a list of paths and exclusion patterns.
+    cache-path: # optional
+    # Restore caches without saving cache changes in the post action.
+    cache-read-only: # optional
+    # Workaround to pass job status to post job step. This variable is not intended for manual setting
+    job-status: # optional, default is ${{ job.status }}
+    # The token used to authenticate when fetching version manifests hosted on github.com, such as for the Microsoft Build of OpenJDK. When running this action on github.com, the default value is sufficient. When running on GHES, you can pass a personal access token for github.com if you are experiencing rate limiting.
+    token: # optional, default is ${{ github.server_url == 'https://github.com' && github.token || '' }}
+    # Name of Maven Toolchain ID if the default name of "${mvn-toolchain-vendor}_${java-version}" is not wanted. The toolchain vendor defaults to the "distribution" input. When supplied, the number of IDs must match the number of Java versions. See examples of supported syntax in Advanced Usage file
+    mvn-toolchain-id: # optional
+    # Name of Maven Toolchain Vendor if the default name of "${distribution}" is not wanted. See examples of supported syntax in Advanced Usage file
+    mvn-toolchain-vendor: # optional
+    # Whether Maven should print artifact download/transfer progress to the build log. When "false" (default) the action sets "-ntp" (--no-transfer-progress) in MAVEN_ARGS to produce cleaner logs. Set to "true" to keep the progress output. Has no effect on non-Maven builds.
+    show-download-progress: # optional
+    # Whether to register the Java problem matcher (compiler errors/warnings and uncaught exceptions). Set to "false" to disable annotations.
+    problem-matcher: # optional, default is true- name: Download a Build Artifact
+  uses: actions/download-artifact@v3.1.0
+  with:
+    # Artifact name
+    name: # optional
+    # Destination path
+    path: # optional- name: Setup Go environment
+  uses: actions/setup-go@v7.0.0
+  with:
+    # The Go version to download (if necessary) and use. Supports semver spec and ranges. Be sure to enclose this option in single quotation marks.
+    go-version: # optional
+    # Path to the go.mod, go.work, .go-version, or .tool-versions file.
+    go-version-file: # optional
+    # Set this option to true if you want the action to always check for the latest available version that satisfies the version spec
+    check-latest: # optional
+    # Used to pull Go distributions from go-versions. Since there's a default, this is typically not supplied by the user. When running this action on github.com, the default value is sufficient. When running on GHES, you can pass a personal access token for github.com if you are experiencing rate limiting.
+    token: # optional, default is ${{ github.server_url == 'https://github.com' && github.token || '' }}
+    # Used to specify whether caching is needed. Set to true, if you'd like to enable caching.
+    cache: # optional, default is true
+    # Used to specify the path to a dependency file (e.g., go.mod, go.sum)
+    cache-dependency-path: # optional
+    # Target architecture for Go to use. Examples: x86, x64. Will use system architecture by default.
+    architecture: # optional
+    # Custom base URL for downloading Go distributions. Use this to download Go from a mirror or custom source. Defaults to "https://go.dev/dl". Can also be set via the GO_DOWNLOAD_BASE_URL environment variable. The input takes precedence over the environment variable.
+    go-download-base-url: # optional- name: Source to Image Build
+  # You may pin to the exact commit or the version.
+  # uses: redhat-actions/s2i-build@1436d4468ca4dde2a6c85faaae0cb3864f5ffe70
+  uses: redhat-actions/s2i-build@v2
+  with:
+    # The path of the s2i builder image.
+    builder_image: 
+    # The Name of the image to build
+    image: 
+    # The tags of the image to build. For multiple tags, seperate by a space. For example, "latest v1".
+    tags: # optional, default is latest
+    # The location of the path to run s2i from
+    path_context: # optional, default is .
+    # Log level when running the S2I
+    log_level: # optional, default is 1
+    # List of environment variable key-value pairs to pass to the s2i builder context
+    env_vars: # optional
+    # Include all files in tar during build which includes .git directory
+    include_git: # optional, default is false- name: Papyrus Markdown Export
+  # You may pin to the exact commit or the version.
+  # uses: thomas-worm/papyrus-export-markdown@841a040caac1c20e6196ff2c79c6f8459670a912
+  uses: thomas-worm/papyrus-export-markdown@v1
+  with:
+    # Directory containing the Papyrus model (scanned recursively for *.uml, *.di/*.notation and *.aird files; GMF diagrams need their .di file, matching papyrus-export-diagrams).
+    model-dir: # optional, default is model
+    # Package to start the export from, as qualified name (e.g. Documentation::arc42, with or without the root model name) or as xmi:id. Empty exports from the model root.
+    start-package: # optional, default is 
+    # Directory where the markdown tree will be written. Created if missing.
+    output-dir: 
+    # If true, diagrams placed directly inside a package are embedded into that package's markdown file (after its comments) unless already referenced there via uml:#.
+    include-diagrams: # optional, default is true
+    # Image format for diagram exports: SVG, PNG, JPEG, BMP, or GIF.
+    diagram-format: # optional, default is SVG
+    # Name of the directory below output-dir where diagram images are placed.
+    images-subdir: # optional, default is images
+    # Directory with diagram images pre-exported by thomas-worm/papyrus-export-diagrams using naming: xmiId and the same format. When set, the internal diagram export is skipped and papyrus-home is not needed.
+    images-dir: # optional, default is 
+    # File name of the markdown file generated per package, e.g. README.md (rendered by GitHub) or index.md (MkDocs convention).
+    index-file: # optional, default is README.md
+    # If true, every generated file starts with a `# <package name>` heading.
+    add-title: # optional, default is true
+    # Path to the Papyrus-Desktop installation (folder containing the plugins/ directory). Produced by setup-papyrus as papyrus-home. Required unless images-dir is set.
+    papyrus-home: # optional, default is 
+    # Path to the Papyrus-Desktop launcher executable. Produced by setup-papyrus as papyrus-launcher. Optional — falls back to searching inside papyrus-home if omitted.
+    papyrus-launcher: # optional, default is 
+    # If true, the step fails when a diagram fails to export or a uml:# reference cannot be resolved. If false, exports as much as possible and reports warnings.
+    fail-on-error: # optional, default is true- name: SQLite Cloud - docs search
+  # You may pin to the exact commit or the version.
+  # uses: sqlitecloud/docsearch-action@f3c6771bfa8f770cd0ca621587a4bd8fe92e8049
+  uses: sqlitecloud/docsearch-action@v6
+  with:
+    # The SQLite Cloud project connection string.
+    project-string: 
+    # Your website's documentation base url.
+    base-url: 
+    # The name of the database to use on SQLite Cloud, just remeber to create first a database on your project!
+    database: 
+    # The path of the markdown files, by default it will parse every .md/.mdx file recursively starting from the working directory.
+    path: # optional, default is $(pwd)
+    # If you want to remove html elements from the search set this to true.
+    strip-html: # optional
+    # If you want to remove jsx elements from the search set this to true.
+    strip-jsx: # optional
+    # If you want to avoid redundancy of your markdown titles in the search set this to true.
+    strip-md-titles: # optional
+    # If you use a front matter and you want the action to convert it to json and send it to the cloud make this true.
+    use-front-matter: # optional
+    # Use the slug in the header as the path instead of the relative one.
+    path-using-slug: # optional- name: Sync Templates
+  # You may pin to the exact commit or the version.
+  # uses: fiberplane/sync-templates@e35786a91f4d6ec8f9b4df0ccfa66770cff78083
+  uses: fiberplane/sync-templates@v1
+  with:
+    # API token used to access the Fiberplane API with
+    api-token: 
+    # ID of the workspace to which the templates should be uploaded to
+    workspace-id: 
+    # Base URL of the Fiberplane API
+    fp-base-url: # optional, default is https://studio.fiberplane.com
+    # Custom directory that should be monitored for Template JSONNET files (default: .fiberplane/templates/)
+    templates-directory: # optional, default is .fiberplane/templates/
+    # Version of the Fiberplane CLI to use (latest by default)
+    fp-version: # optional, default is latest- name: Priority List
+  # You may pin to the exact commit or the version.
+  # uses: iterative/priority-list@646ca456f8a08495ae4c6259bd20ab274b9eaa03
+  uses: iterative/priority-list@v1.0.2
+  with:
+    # Token with read access to all analysed repos
+    github-token: 
+    # 
+    repos: 
+    # weight for number of comments
+    weight_activity: # default is 14
+    # weight for reactions to original issue
+    weight_reactions: # default is 7
+    # weight for days of inactivity
+    weight_staleness: # default is 1
+    # weight for days open
+    weight_age: # default is 0.142857
+    # weight multiplier for PRs (compared to issues)
+    multiplier_pr: # default is 7
+    # weight multiplier for labels (negative to exclude)
+    multiplier_labels: # default is example:-1 epic:0.142857 blocked:0.142857 invalid:0.142857
+    # largest pN-label (lowest priority)
+    p_label_graveyard: # default is 4
+    # URL to post slack payload to (requires `people.json`)
+    slack_webhook: # optional
